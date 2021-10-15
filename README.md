@@ -11,9 +11,9 @@
 <div align="center"> 
     <h3> Authors: </h3> 
     <h5> 
-            <a href="https://github.com/Smile-Bonchichi"> 🖤 Улан у. Нурдин 🖤 </a> 
+            🖤 <a href="https://github.com/Smile-Bonchichi"> Нурдин </a> 🖤
             <span style="color:darkmagenta"> and </span> 
-            <a href="https://github.com/bermetelmirova"> 💀 Элмирова Бермет 💀 </a> 
+             💀 <a href="https://github.com/bermetelmirova"> Бермет </a> 💀 
     </h5> 
 </div>
 
