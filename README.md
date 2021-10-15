@@ -69,3 +69,7 @@
     </li>
     </ul>
 </div>
+
+<h2> <span style="color:black"> Схема Базы данных: </span> </h2>
+
+![img.png](DB.png)
