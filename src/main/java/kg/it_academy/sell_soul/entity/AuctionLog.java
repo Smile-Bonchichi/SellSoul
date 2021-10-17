@@ -1,6 +1,6 @@
-package kg.itAcademy.SellSoul.entity;
+package kg.it_academy.sell_soul.entity;
 
-import kg.itAcademy.SellSoul.entity.BaseEntity.BaseEntity;
+import kg.it_academy.sell_soul.entity.base_entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,11 +9,10 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @ToString
-
 public class AuctionLog extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "auction_id")

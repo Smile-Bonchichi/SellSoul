@@ -1,4 +1,4 @@
-package kg.itAcademy.SellSoul.entity.BaseEntity;
+package kg.it_academy.sell_soul.entity.base_entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

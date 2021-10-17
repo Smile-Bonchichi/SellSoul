@@ -1,6 +1,6 @@
-package kg.itAcademy.SellSoul.repository;
+package kg.it_academy.sell_soul.repository;
 
-import kg.itAcademy.SellSoul.entity.AuctionLog;
+import kg.it_academy.sell_soul.entity.AuctionLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AuctionLogRepository extends JpaRepository<Long, AuctionLog> {

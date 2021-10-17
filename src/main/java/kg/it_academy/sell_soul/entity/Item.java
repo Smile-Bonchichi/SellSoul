@@ -1,19 +1,18 @@
-package kg.itAcademy.SellSoul.entity;
+package kg.it_academy.sell_soul.entity;
 
 import javax.persistence.*;
 
-import kg.itAcademy.SellSoul.entity.BaseEntity.BaseEntity;
+import kg.it_academy.sell_soul.entity.base_entity.BaseEntity;
 import lombok.*;
 
 @Table(name = "items")
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @ToString
-
 public class Item extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;

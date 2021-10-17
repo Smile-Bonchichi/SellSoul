@@ -1,19 +1,18 @@
-package kg.itAcademy.SellSoul.entity;
+package kg.it_academy.sell_soul.entity;
 
 import javax.persistence.*;
 
-import kg.itAcademy.SellSoul.entity.BaseEntity.BaseEntity;
+import kg.it_academy.sell_soul.entity.base_entity.BaseEntity;
 import lombok.*;
 
 @Table(name = "baskets")
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @ToString
-
 public class Basket extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")

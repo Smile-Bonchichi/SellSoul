@@ -1,6 +1,6 @@
-package kg.itAcademy.SellSoul.repository;
+package kg.it_academy.sell_soul.repository;
 
-import kg.itAcademy.SellSoul.entity.Basket;
+import kg.it_academy.sell_soul.entity.Basket;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BasketRepository extends JpaRepository<Long, Basket> {
