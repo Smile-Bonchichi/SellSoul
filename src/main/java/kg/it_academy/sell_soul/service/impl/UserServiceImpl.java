@@ -4,9 +4,11 @@ import kg.it_academy.sell_soul.entity.User;
 import kg.it_academy.sell_soul.repository.UserRepository;
 import kg.it_academy.sell_soul.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
