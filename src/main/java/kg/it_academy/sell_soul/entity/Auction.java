@@ -5,6 +5,7 @@ import javax.persistence.*;
 import kg.it_academy.sell_soul.entity.base_entity.BaseEntity;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Table(name = "auctions")
@@ -26,7 +27,7 @@ public class Auction extends BaseEntity {
     private LocalDateTime endTime;
 
     @Column(name = "start_price")
-    private Long startPrice;
+    private BigDecimal startPrice;
 
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)

@@ -4,6 +4,7 @@ import kg.it_academy.sell_soul.entity.base_entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Table(name = "auction_logs")
 @Entity
@@ -23,5 +24,5 @@ public class AuctionLog extends BaseEntity {
     private User buyer;
 
     @Column(name = "highest_price")
-    private Long highestPrice;
+    private BigDecimal highestPrice;
 }

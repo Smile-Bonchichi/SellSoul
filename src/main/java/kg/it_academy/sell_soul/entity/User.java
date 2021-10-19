@@ -7,6 +7,8 @@ import javax.persistence.Table;
 import kg.it_academy.sell_soul.entity.base_entity.BaseEntity;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Table(name = "users")
 @Entity
 @Getter
@@ -23,5 +25,5 @@ public class User extends BaseEntity {
     private String password;
 
     @Column(name = "balance")
-    private Long balance;
+    private BigDecimal balance;
 }
