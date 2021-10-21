@@ -1,13 +1,20 @@
 package kg.it_academy.sell_soul.contoller.base_controller;
 
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-public interface BaseController<T> {
-    T save(T t);
+public abstract class BaseController<T> {
 
-    List<T> getAll();
+    @PostMapping
+    public abstract T save(@RequestBody T t);
 
-    T findById(Long id);
+    @GetMapping
+    public abstract List<T> getAll();
 
-    T deleteById(Long id);
+    @GetMapping("/{id}")
+    public abstract T findById(@PathVariable Long id);
+
+    @DeleteMapping("/{id}")
+    public abstract T deleteById(@PathVariable Long id);
 }

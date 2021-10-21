@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/auction")
-public class AuctionController implements BaseController<Auction> {
+public class AuctionController extends BaseController<Auction> {
     @Autowired
     AuctionService auctionService;
 

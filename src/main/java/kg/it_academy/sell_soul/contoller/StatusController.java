@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/status")
-public class StatusController implements BaseController<Status> {
+public class StatusController extends BaseController<Status> {
     @Autowired
     private StatusService statusService;
 
