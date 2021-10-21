@@ -29,13 +29,9 @@ public class Auction extends BaseEntity {
     @Column(name = "start_price")
     private BigDecimal startPrice;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)

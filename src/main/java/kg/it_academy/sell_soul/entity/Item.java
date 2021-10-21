@@ -24,6 +24,10 @@ public class Item extends BaseEntity {
     private String imageUrl;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 }
