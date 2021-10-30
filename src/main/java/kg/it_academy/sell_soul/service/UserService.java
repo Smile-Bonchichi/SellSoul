@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface UserService extends BaseService<User> {
     User getByUserLogin(String login);
+
     String getByUserAuthModel(UserAuthModel userAuthModel);
 }

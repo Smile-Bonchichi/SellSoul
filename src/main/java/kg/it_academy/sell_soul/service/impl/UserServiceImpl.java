@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Override
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -53,13 +54,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getByUserAuthModel(UserAuthModel userAuthModel) {
         User user = userRepository.findByLogin(userAuthModel.getLogin())
-                .orElseThrow(()-> new IllegalArgumentException("Неверный логин или пароль"));
-        String encodePassword = user.getPassword();
+                .orElseThrow(() -> new IllegalArgumentException("Неверный логин или пароль"));
+
         boolean isPasswordCorrect = passwordEncoder.matches(userAuthModel.getPassword(), user.getPassword());
-        if(!isPasswordCorrect)
+        if (!isPasswordCorrect)
             throw new IllegalArgumentException("Неверный логин или пароль");
+
         String userPasswordLoginPair = userAuthModel.getLogin() + ":" + userAuthModel.getPassword();
-        String authHeader = new String(Base64.getEncoder().encode(userPasswordLoginPair.getBytes()));
-        return "Basic " + authHeader;
+        return "Basic " + new String(Base64.getEncoder().encode(userPasswordLoginPair.getBytes()));
     }
 }
