@@ -1,11 +1,10 @@
 package kg.it_academy.sell_soul.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import kg.it_academy.sell_soul.entity.base_entity.BaseEntity;
 import lombok.*;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import java.math.BigDecimal;
 
@@ -26,4 +25,7 @@ public class User extends BaseEntity {
 
     @Column(name = "balance")
     private BigDecimal balance;
+
+
+    private Long isActive;
 }

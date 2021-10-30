@@ -1,21 +1,30 @@
 package kg.it_academy.sell_soul.service.impl;
 
 import kg.it_academy.sell_soul.entity.Item;
+import kg.it_academy.sell_soul.entity.User;
 import kg.it_academy.sell_soul.repository.ItemRepository;
+import kg.it_academy.sell_soul.repository.UserRepository;
 import kg.it_academy.sell_soul.service.ItemService;
+import kg.it_academy.sell_soul.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemRepository itemRepository;
-
+    @Autowired
+    private UserService userService;
 
     @Override
     public Item save(Item item) {
+        Principal principal = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getByUserLogin(principal.getName());
+        item.setUser(user);
         return itemRepository.save(item);
     }
 
