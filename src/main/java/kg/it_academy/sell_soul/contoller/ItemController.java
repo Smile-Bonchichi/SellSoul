@@ -32,6 +32,26 @@ public class ItemController extends BaseController<Item> {
         return itemService.findById(id);
     }
 
+    @GetMapping("/search-item/{itemName}")
+    public List<Item> findByItemName(@PathVariable String itemName) {
+        return itemService.findByName(itemName);
+    }
+
+    @GetMapping("/{categoryName}")
+    public List<Item> findByCategoryName(@PathVariable String categoryName) {
+        return itemService.findByCategory(categoryName);
+    }
+
+    @GetMapping("/un-active-item")
+    public List<Item> findByUnActiveItem() {
+        return itemService.findByUnActiveItem();
+    }
+
+    @GetMapping("/active-item")
+    public List<Item> findByActiveItem() {
+        return itemService.findByActiveItem();
+    }
+
     @DeleteMapping("/{id}")
     @Override
     public Item deleteById(@PathVariable Long id) {

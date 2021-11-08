@@ -1,4 +1,5 @@
 package kg.it_academy.sell_soul.converter.base_converter;
+
 import java.util.function.Function;
 
 public class BaseConverter<Model, Entity> {

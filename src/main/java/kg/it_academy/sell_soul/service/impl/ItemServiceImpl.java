@@ -3,7 +3,6 @@ package kg.it_academy.sell_soul.service.impl;
 import kg.it_academy.sell_soul.entity.Item;
 import kg.it_academy.sell_soul.entity.User;
 import kg.it_academy.sell_soul.repository.ItemRepository;
-import kg.it_academy.sell_soul.repository.UserRepository;
 import kg.it_academy.sell_soul.service.ItemService;
 import kg.it_academy.sell_soul.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,26 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item findById(Long id) {
         return itemRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Item> findByCategory(String categoryName) {
+        return itemRepository.findAllByCategory(categoryName);
+    }
+
+    @Override
+    public List<Item> findByName(String itemName) {
+        return itemRepository.findAllByItemName(itemName);
+    }
+
+    @Override
+    public List<Item> findByUnActiveItem() {
+        return itemRepository.findAllByUnActiveItem();
+    }
+
+    @Override
+    public List<Item> findByActiveItem() {
+        return itemRepository.findAllByActiveItem();
     }
 
     @Override

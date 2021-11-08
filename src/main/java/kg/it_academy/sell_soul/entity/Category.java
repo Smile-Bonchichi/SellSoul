@@ -3,6 +3,7 @@ package kg.it_academy.sell_soul.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import kg.it_academy.sell_soul.entity.base_entity.BaseEntity;
 import lombok.*;
 

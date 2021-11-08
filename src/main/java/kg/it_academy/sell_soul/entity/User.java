@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 import kg.it_academy.sell_soul.entity.base_entity.BaseEntity;
 import lombok.*;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import java.math.BigDecimal;
 

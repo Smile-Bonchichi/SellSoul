@@ -1,7 +1,6 @@
 package kg.it_academy.sell_soul.service.impl;
 
 import kg.it_academy.sell_soul.entity.User;
-import kg.it_academy.sell_soul.model.ResponseMessage;
 import kg.it_academy.sell_soul.model.UserAuthModel;
 import kg.it_academy.sell_soul.repository.UserRepository;
 import kg.it_academy.sell_soul.service.UserService;
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 

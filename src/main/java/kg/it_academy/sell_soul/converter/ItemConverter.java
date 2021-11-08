@@ -22,6 +22,7 @@ public class ItemConverter extends BaseConverter<ItemModel, Item> {
 
     private static Item convertToEntity(ItemModel modelToConvert) {
         if (modelToConvert == null) return null;
+
         return Item.builder()
                 .name(modelToConvert.getName())
                 .description(modelToConvert.getDescription())

@@ -29,8 +29,8 @@ public class ImageServiceImpl implements ImageService {
 
         try {
             file = Files.createTempFile(System.currentTimeMillis() + "",
-                            Objects.requireNonNull(multipartFile.getOriginalFilename())
-                                    .substring(multipartFile.getOriginalFilename().length() - 4))
+                    Objects.requireNonNull(multipartFile.getOriginalFilename())
+                            .substring(multipartFile.getOriginalFilename().length() - 4))
                     .toFile();
 
             multipartFile.transferTo(file);
