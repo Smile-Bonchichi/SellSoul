@@ -1,3 +1,5 @@
+/src/main/resources/application.properties
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -15,6 +17,7 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+.jpb
 *.iws
 *.iml
 *.ipr

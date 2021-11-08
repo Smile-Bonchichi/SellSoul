@@ -1,4 +1,4 @@
-package kg.itAcademy.SellSoul;
+package kg.it_academy.sell_soul;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
