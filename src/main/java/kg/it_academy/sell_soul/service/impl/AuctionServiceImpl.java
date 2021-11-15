@@ -1,17 +1,60 @@
 package kg.it_academy.sell_soul.service.impl;
 
+import kg.it_academy.sell_soul.converter.AuctionConverter;
 import kg.it_academy.sell_soul.entity.Auction;
+import kg.it_academy.sell_soul.exception.ApiFailException;
+import kg.it_academy.sell_soul.model.AuctionModel;
 import kg.it_academy.sell_soul.repository.AuctionRepository;
 import kg.it_academy.sell_soul.service.AuctionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 public class AuctionServiceImpl implements AuctionService {
+    private final AuctionRepository auctionRepository;
+    private final AuctionConverter auctionConverter;
+
     @Autowired
-    private AuctionRepository auctionRepository;
+    public AuctionServiceImpl(AuctionRepository auctionRepository, AuctionConverter auctionConverter) {
+        this.auctionRepository = auctionRepository;
+        this.auctionConverter = auctionConverter;
+    }
+
+    @Override
+    public Auction saveWithAd(AuctionModel auctionModel) {
+        Auction auction = auctionConverter.convertFromModel(auctionModel);
+
+        if (auction.getStartPrice().compareTo(BigDecimal.ZERO) < 0)
+            throw new ApiFailException("Сумма внесенная в начальную цену меньше 0!");
+        else if (auction.getStartTime().compareTo(LocalDateTime.now()) < 0 || auction.getEndTime().compareTo(LocalDateTime.now()) < 0)
+            throw new ApiFailException("Время введено не верно!");
+        else if (auction.getEndTime().compareTo(auction.getStartTime()) <= 0)
+            throw new ApiFailException("Время окончания введено не верно, он меньше времени начала!");
+        else
+            auction = auctionRepository.save(auction);
+
+        return auction;
+    }
+
+    public Auction saveWithoutAd(AuctionModel auctionModel) {
+        Auction auction = auctionConverter.convertFromModel(auctionModel);
+        auction.setStartTime(LocalDateTime.now());
+
+        if (auction.getStartPrice().compareTo(BigDecimal.ZERO) < 0)
+            throw new ApiFailException("Сумма внесенная в начальную цену меньше 0!");
+        else if (auction.getEndTime().compareTo(auction.getStartTime()) < 0)
+            throw new ApiFailException("Время окончания введено не верно, он меньше времени начала!");
+        else
+            auction = auctionRepository.save(auction);
+
+        return auction;
+    }
 
     @Override
     public Auction save(Auction auction) {
@@ -34,5 +77,10 @@ public class AuctionServiceImpl implements AuctionService {
         if (auctionForDelete != null)
             auctionRepository.deleteById(id);
         return auctionForDelete;
+    }
+
+    @Override
+    public List<Auction> findByActiveAuction() {
+        return auctionRepository.getAuctionByActiveStatus();
     }
 }

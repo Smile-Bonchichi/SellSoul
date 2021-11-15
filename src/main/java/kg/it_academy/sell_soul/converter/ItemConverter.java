@@ -14,7 +14,6 @@ public class ItemConverter extends BaseConverter<ItemModel, Item> {
 
         return ItemModel.builder()
                 .name(entityToConvert.getName())
-                .imageUrl(entityToConvert.getImageUrl())
                 .description(entityToConvert.getDescription())
                 .category(entityToConvert.getCategory())
                 .build();
@@ -26,7 +25,6 @@ public class ItemConverter extends BaseConverter<ItemModel, Item> {
         return Item.builder()
                 .name(modelToConvert.getName())
                 .description(modelToConvert.getDescription())
-                .imageUrl(modelToConvert.getImageUrl())
                 .category(modelToConvert.getCategory())
                 .build();
     }

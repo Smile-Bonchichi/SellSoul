@@ -14,10 +14,14 @@ import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
+    private final ItemRepository itemRepository;
+    private final UserService userService;
+
     @Autowired
-    private ItemRepository itemRepository;
-    @Autowired
-    private UserService userService;
+    public ItemServiceImpl(ItemRepository itemRepository, UserService userService) {
+        this.itemRepository = itemRepository;
+        this.userService = userService;
+    }
 
     @Override
     public Item save(Item item) {

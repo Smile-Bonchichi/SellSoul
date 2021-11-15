@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/status")
 public class StatusController extends BaseController<Status> {
+    private final StatusService statusService;
+
     @Autowired
-    private StatusService statusService;
+    public StatusController(StatusService statusService) {
+        this.statusService = statusService;
+    }
 
     @PostMapping
     @Override

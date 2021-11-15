@@ -2,6 +2,7 @@ package kg.it_academy.sell_soul.contoller;
 
 import kg.it_academy.sell_soul.contoller.base_controller.BaseController;
 import kg.it_academy.sell_soul.entity.AuctionLog;
+import kg.it_academy.sell_soul.model.ResponseMessage;
 import kg.it_academy.sell_soul.service.AuctionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +12,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auction-log")
 public class AuctionLogController extends BaseController<AuctionLog> {
+    private final AuctionLogService auctionLogService;
+
     @Autowired
-    private AuctionLogService auctionLogService;
+    public AuctionLogController(AuctionLogService auctionLogService) {
+        this.auctionLogService = auctionLogService;
+    }
 
     @PostMapping
     @Override
     public AuctionLog save(@RequestBody AuctionLog auctionLog) {
         return auctionLogService.save(auctionLog);
+    }
+
+    @PostMapping("/add")
+    public ResponseMessage<AuctionLog> saveCorrect(@RequestBody AuctionLog auctionLog) {
+        return new ResponseMessage<AuctionLog>().prepareSuccessMessage(auctionLogService.save(auctionLog));
     }
 
     @GetMapping

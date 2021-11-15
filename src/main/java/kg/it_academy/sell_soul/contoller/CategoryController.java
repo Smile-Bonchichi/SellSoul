@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController extends BaseController<Category> {
+    private final CategoryService categoryService;
+
     @Autowired
-    private CategoryService categoryService;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @PostMapping
     @Override

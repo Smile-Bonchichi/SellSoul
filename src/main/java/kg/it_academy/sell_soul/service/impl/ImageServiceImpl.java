@@ -20,8 +20,12 @@ import java.util.Objects;
 public class ImageServiceImpl implements ImageService {
     private static final String CLOUDINARY_URL = "cloudinary://839826362311982:neFJEViwPCkJPMba1bfH1Jqlb4Q@dt212gr4m";
 
+    private final ImageRepository imageRepository;
+
     @Autowired
-    private ImageRepository imageRepository;
+    public ImageServiceImpl(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
 
     @Override
     public String saveImageInCloudinary(MultipartFile multipartFile) {
@@ -37,7 +41,6 @@ public class ImageServiceImpl implements ImageService {
 
             Cloudinary cloudinary = new Cloudinary(CLOUDINARY_URL);
             Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
-
             return ((String) uploadResult.get("url"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -47,9 +50,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image saveImage(String url) {
-        Image image = new Image();
-        image.setUrl(url);
-        return imageRepository.save(image);
+        return imageRepository.save(Image.builder()
+                .url(url)
+                .build());
     }
 
     @Override
@@ -59,7 +62,6 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image saveImage(MultipartFile multipartFile) {
-        String imageUrl = saveImageInCloudinary(multipartFile);
-        return saveImage(imageUrl);
+        return saveImage(saveImageInCloudinary(multipartFile));
     }
 }

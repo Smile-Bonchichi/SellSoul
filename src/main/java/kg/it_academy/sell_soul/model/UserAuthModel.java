@@ -9,6 +9,8 @@ import lombok.*;
 @Builder
 @ToString
 public class UserAuthModel {
+
     private String login;
+
     private String password;
 }

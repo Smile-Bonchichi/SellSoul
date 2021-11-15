@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/image")
 public class ImageController {
+    private final ImageService imageService;
+
     @Autowired
-    private ImageService imageService;
+    public ImageController(ImageService imageService) {
+        this.imageService = imageService;
+    }
 
     @GetMapping
     public List<Image> getAll() {

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 @Data
 @Builder
@@ -13,15 +12,31 @@ import org.springframework.http.HttpStatus;
 public class ResponseMessage<T> {
     private T value;
 
-    private Integer status;
+    private String message;
 
-    private String details;
+    private String status;
 
     public ResponseMessage<T> prepareSuccessMessage(T value) {
-        ResponseMessage<T> successMessage = new ResponseMessage<T>();
-        successMessage.setValue(value);
-        successMessage.setStatus(HttpStatus.OK.value());
-        successMessage.setDetails("");
-        return successMessage;
+        return ResponseMessage.<T>builder()
+                .value(value)
+                .message(null)
+                .status("OK")
+                .build();
+    }
+
+    public ResponseMessage<T> prepareFailMessage(String message) {
+        return ResponseMessage.<T>builder()
+                .value(null)
+                .message(message)
+                .status("FAIL")
+                .build();
+    }
+
+    public ResponseMessage<T> prepareErrorMessage(String message) {
+        return ResponseMessage.<T>builder()
+                .value(null)
+                .message(message)
+                .status("ERROR")
+                .build();
     }
 }

@@ -1,5 +1,6 @@
 package kg.it_academy.sell_soul.service.impl;
 
+import kg.it_academy.sell_soul.converter.UserConverter;
 import kg.it_academy.sell_soul.entity.User;
 import kg.it_academy.sell_soul.model.UserAuthModel;
 import kg.it_academy.sell_soul.repository.UserRepository;
@@ -13,16 +14,26 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public User save(UserAuthModel userAuthModel) {
+        UserConverter userConverter = new UserConverter();
+        User user = userConverter.convertFromModel(userAuthModel);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
 
     @Override
     public User save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        return null;
     }
 
     @Override
@@ -52,8 +63,8 @@ public class UserServiceImpl implements UserService {
     public String getByUserAuthModel(UserAuthModel userAuthModel) {
         User user = userRepository.findByLogin(userAuthModel.getLogin())
                 .orElseThrow(() -> new IllegalArgumentException("Неверный логин или пароль"));
-
         boolean isPasswordCorrect = passwordEncoder.matches(userAuthModel.getPassword(), user.getPassword());
+
         if (!isPasswordCorrect)
             throw new IllegalArgumentException("Неверный логин или пароль");
 

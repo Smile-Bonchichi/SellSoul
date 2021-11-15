@@ -10,8 +10,12 @@ import lombok.*;
 @Builder
 @ToString
 public class ItemModel {
+
     private String name;
+
     private String imageUrl;
+
     private String description;
+
     private Category category;
 }
