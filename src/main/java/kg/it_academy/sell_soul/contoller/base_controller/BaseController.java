@@ -1,6 +1,7 @@
 package kg.it_academy.sell_soul.contoller.base_controller;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

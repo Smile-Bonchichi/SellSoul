@@ -24,7 +24,7 @@ public class UserController extends BaseController<User> {
     }
 
     @PostMapping("/sign-in")
-    public ResponseMessage<String> save(@RequestBody UserAuthModel userAuthModel) {
+    public ResponseMessage<String> signIn(@RequestBody UserAuthModel userAuthModel) {
         ResponseMessage<String> responseMessage = new ResponseMessage<>();
         try {
             String authHeader = userService.getByUserAuthModel(userAuthModel);

@@ -37,7 +37,6 @@ public class ImageServiceImpl implements ImageService {
 
             Cloudinary cloudinary = new Cloudinary(CLOUDINARY_URL);
             Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
-
             return ((String) uploadResult.get("url"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
