@@ -6,6 +6,8 @@ import kg.it_academy.sell_soul.service.base_service.BaseService;
 
 public interface UserService extends BaseService<User> {
     User getByUserLogin(String login);
+
     User save(UserAuthModel userAuthModel);
+
     String getByUserAuthModel(UserAuthModel userAuthModel);
 }

@@ -11,12 +11,17 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class AuctionModel {
+
     private String addTime;
+
     private String startTime;
+
     private String endTime;
+
     private BigDecimal startPrice;
+
     private Long item;
+
     private Long status;
 }

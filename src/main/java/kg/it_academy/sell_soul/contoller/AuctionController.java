@@ -13,8 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auction")
 public class AuctionController extends BaseController<Auction> {
+    private final AuctionService auctionService;
+
     @Autowired
-    AuctionService auctionService;
+    public AuctionController(AuctionService auctionService) {
+        this.auctionService = auctionService;
+    }
 
     @PostMapping
     @Override
@@ -23,12 +27,12 @@ public class AuctionController extends BaseController<Auction> {
     }
 
     @PostMapping("/addWithAd")
-    public ResponseMessage<Auction> saveWithAd(@RequestBody AuctionModel auction){
+    public ResponseMessage<Auction> saveWithAd(@RequestBody AuctionModel auction) {
         return new ResponseMessage<Auction>().prepareSuccessMessage(auctionService.saveWithAd(auction));
     }
 
     @PostMapping("/addWithoutAd")
-    public ResponseMessage<Auction> saveWithoutAd(@RequestBody AuctionModel auction){
+    public ResponseMessage<Auction> saveWithoutAd(@RequestBody AuctionModel auction) {
         return new ResponseMessage<Auction>().prepareSuccessMessage(auctionService.saveWithoutAd(auction));
     }
 

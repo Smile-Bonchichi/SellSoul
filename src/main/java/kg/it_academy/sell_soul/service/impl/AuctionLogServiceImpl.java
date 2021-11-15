@@ -12,15 +12,20 @@ import java.util.List;
 
 @Service
 public class AuctionLogServiceImpl implements AuctionLogService {
+    private final AuctionLogRepository auctionLogRepository;
+
     @Autowired
-    private AuctionLogRepository auctionLogRepository;
+    public AuctionLogServiceImpl(AuctionLogRepository auctionLogRepository) {
+        this.auctionLogRepository = auctionLogRepository;
+    }
 
     @Override
     public AuctionLog save(AuctionLog auctionLog) {
         Auction auction = auctionLog.getAuction();
-        if(auction.getStatus().getId() == 0L){
+
+        if (auction.getStatus().getId() == 0L) {
             throw new ApiFailException("Аукцион закрыт!");
-        }else{
+        } else {
             auctionLog = auctionLogRepository.save(auctionLog);
         }
         return auctionLog;
@@ -39,6 +44,7 @@ public class AuctionLogServiceImpl implements AuctionLogService {
     @Override
     public AuctionLog deleteById(Long id) {
         AuctionLog auctionLogForDelete = findById(id);
+
         if (auctionLogForDelete != null)
             auctionLogRepository.deleteById(id);
         return auctionLogForDelete;

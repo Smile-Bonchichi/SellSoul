@@ -3,8 +3,6 @@ package kg.it_academy.sell_soul.converter;
 import kg.it_academy.sell_soul.converter.base_converter.BaseConverter;
 import kg.it_academy.sell_soul.entity.Item;
 import kg.it_academy.sell_soul.model.ItemModel;
-import org.springframework.context.annotation.Bean;
-
 
 public class ItemConverter extends BaseConverter<ItemModel, Item> {
     public ItemConverter() {

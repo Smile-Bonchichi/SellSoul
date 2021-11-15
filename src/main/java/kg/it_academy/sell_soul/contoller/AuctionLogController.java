@@ -12,13 +12,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auction-log")
 public class AuctionLogController extends BaseController<AuctionLog> {
+    private final AuctionLogService auctionLogService;
+
     @Autowired
-    private AuctionLogService auctionLogService;
+    public AuctionLogController(AuctionLogService auctionLogService) {
+        this.auctionLogService = auctionLogService;
+    }
 
     @PostMapping
     @Override
     public AuctionLog save(@RequestBody AuctionLog auctionLog) {
-        return  auctionLogService.save(auctionLog);
+        return auctionLogService.save(auctionLog);
     }
 
     @PostMapping("/add")

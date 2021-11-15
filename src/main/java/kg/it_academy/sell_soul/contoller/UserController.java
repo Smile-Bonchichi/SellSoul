@@ -14,8 +14,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 public class UserController extends BaseController<User> {
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping
     @Override
@@ -26,9 +30,9 @@ public class UserController extends BaseController<User> {
     @PostMapping("/sign-in")
     public ResponseMessage<String> signIn(@RequestBody UserAuthModel userAuthModel) {
         ResponseMessage<String> responseMessage = new ResponseMessage<>();
+
         try {
-            String authHeader = userService.getByUserAuthModel(userAuthModel);
-            return responseMessage.prepareSuccessMessage(authHeader);
+            return responseMessage.prepareSuccessMessage(userService.getByUserAuthModel(userAuthModel));
         } catch (IllegalArgumentException e) {
             return responseMessage.prepareSuccessMessage(String.valueOf(HttpStatus.BAD_REQUEST.value()));
         }

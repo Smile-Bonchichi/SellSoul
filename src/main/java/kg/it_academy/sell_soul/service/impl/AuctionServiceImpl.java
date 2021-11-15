@@ -17,14 +17,19 @@ import java.util.List;
 @Slf4j
 @Service
 public class AuctionServiceImpl implements AuctionService {
-    @Autowired
-    private AuctionRepository auctionRepository;
+    private final AuctionRepository auctionRepository;
+    private final AuctionConverter auctionConverter;
 
-    private AuctionConverter auctionConverter = new AuctionConverter();
+    @Autowired
+    public AuctionServiceImpl(AuctionRepository auctionRepository, AuctionConverter auctionConverter) {
+        this.auctionRepository = auctionRepository;
+        this.auctionConverter = auctionConverter;
+    }
 
     @Override
     public Auction saveWithAd(AuctionModel auctionModel) {
         Auction auction = auctionConverter.convertFromModel(auctionModel);
+
         if (auction.getStartPrice().compareTo(BigDecimal.ZERO) < 0)
             throw new ApiFailException("Сумма внесенная в начальную цену меньше 0!");
         else if (auction.getStartTime().compareTo(LocalDateTime.now()) < 0 || auction.getEndTime().compareTo(LocalDateTime.now()) < 0)
@@ -33,12 +38,14 @@ public class AuctionServiceImpl implements AuctionService {
             throw new ApiFailException("Время окончания введено не верно, он меньше времени начала!");
         else
             auction = auctionRepository.save(auction);
+
         return auction;
     }
 
     public Auction saveWithoutAd(AuctionModel auctionModel) {
         Auction auction = auctionConverter.convertFromModel(auctionModel);
         auction.setStartTime(LocalDateTime.now());
+
         if (auction.getStartPrice().compareTo(BigDecimal.ZERO) < 0)
             throw new ApiFailException("Сумма внесенная в начальную цену меньше 0!");
         else if (auction.getEndTime().compareTo(auction.getStartTime()) < 0)
@@ -51,7 +58,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Override
     public Auction save(Auction auction) {
-        return save(auction);
+        return auctionRepository.save(auction);
     }
 
     @Override
@@ -72,14 +79,8 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionForDelete;
     }
 
-    @Autowired
-    public void setAuctionRepository(AuctionRepository auctionRepository) {
-        this.auctionRepository = auctionRepository;
-    }
-
     @Override
     public List<Auction> findByActiveAuction() {
-        List<Auction> auctions = auctionRepository.getAuctionByActiveStatus();
-        return auctions;
+        return auctionRepository.getAuctionByActiveStatus();
     }
 }

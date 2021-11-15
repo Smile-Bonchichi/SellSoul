@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class StatusServiceImpl implements StatusService {
+    private final StatusRepository statusRepository;
+
     @Autowired
-    private StatusRepository statusRepository;
+    public StatusServiceImpl(StatusRepository statusRepository) {
+        this.statusRepository = statusRepository;
+    }
 
     @Override
     public Status save(Status status) {

@@ -4,8 +4,6 @@ import kg.it_academy.sell_soul.converter.base_converter.BaseConverter;
 import kg.it_academy.sell_soul.entity.User;
 import kg.it_academy.sell_soul.model.UserAuthModel;
 
-import java.util.function.Function;
-
 public class UserConverter extends BaseConverter<UserAuthModel, User> {
 
     public UserConverter() {
@@ -19,7 +17,7 @@ public class UserConverter extends BaseConverter<UserAuthModel, User> {
                 .build();
     }
 
-    private static  UserAuthModel convertToModel(User user) {
+    private static UserAuthModel convertToModel(User user) {
         return UserAuthModel.builder()
                 .login(user.getLogin())
                 .password(user.getPassword())

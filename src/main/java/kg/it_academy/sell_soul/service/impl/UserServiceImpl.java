@@ -14,11 +14,14 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public User save(UserAuthModel userAuthModel) {
@@ -61,6 +64,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByLogin(userAuthModel.getLogin())
                 .orElseThrow(() -> new IllegalArgumentException("Неверный логин или пароль"));
         boolean isPasswordCorrect = passwordEncoder.matches(userAuthModel.getPassword(), user.getPassword());
+
         if (!isPasswordCorrect)
             throw new IllegalArgumentException("Неверный логин или пароль");
 

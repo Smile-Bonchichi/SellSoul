@@ -1,6 +1,6 @@
 package kg.it_academy.sell_soul.exception;
 
-public class ApiErrorException extends RuntimeException{
+public class ApiErrorException extends RuntimeException {
     public ApiErrorException(String message) {
         super(message);
     }

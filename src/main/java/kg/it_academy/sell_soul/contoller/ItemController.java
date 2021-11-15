@@ -6,17 +6,19 @@ import kg.it_academy.sell_soul.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/item")
 public class ItemController {
-    @Autowired
-    private ItemService itemService;
+    private final ItemService itemService;
+    private final ImageService imageService;
 
     @Autowired
-    private ImageService imageService;
+    public ItemController(ItemService itemService, ImageService imageService) {
+        this.itemService = itemService;
+        this.imageService = imageService;
+    }
 
     @PostMapping
     public Item save(@RequestBody Item item) {
