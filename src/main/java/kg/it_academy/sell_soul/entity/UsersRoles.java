@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Table(name = "user_roles")
+@Table(name = "users_roles")
 @Entity
 @Getter
 @Setter
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Builder
 @ToString
-public class UserRole extends BaseEntity {
+public class UsersRoles extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

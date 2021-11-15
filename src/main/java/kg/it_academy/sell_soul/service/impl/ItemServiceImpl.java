@@ -28,6 +28,7 @@ public class ItemServiceImpl implements ItemService {
         Principal principal = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getByUserLogin(principal.getName());
         item.setUser(user);
+
         return itemRepository.save(item);
     }
 
