@@ -27,7 +27,7 @@ public class AuctionTask {
     @Scheduled(cron = "* * * * * *")
     public void checkTimeOfClose() {
         List<Auction> auctions = auctionService.findByActiveAuction();
-        log.info("checkTimeOfClose " + LocalDateTime.now());
+//        log.info("checkTimeOfClose " + LocalDateTime.now());
         Status unActive = statusService.findById(0L);
         auctions.stream().filter(auction -> auction.getEndTime()
                         .compareTo(LocalDateTime.now()) <= 0)
@@ -36,7 +36,7 @@ public class AuctionTask {
 
     @Scheduled(fixedRate = 1000)
     public void checkTimeOfOpen() {
-        log.info("checkTimeOfOpen " + LocalDateTime.now());
+        //      log.info("checkTimeOfOpen " + LocalDateTime.now());
         List<Auction> auctions = auctionService.getAll();
         Status active = statusService.findById(1L);
         auctions.stream().filter(auction -> auction.getEndTime()
