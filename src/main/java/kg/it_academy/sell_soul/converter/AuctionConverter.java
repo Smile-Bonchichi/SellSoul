@@ -2,12 +2,10 @@ package kg.it_academy.sell_soul.converter;
 
 import kg.it_academy.sell_soul.converter.base_converter.BaseConverter;
 import kg.it_academy.sell_soul.entity.Auction;
-import kg.it_academy.sell_soul.entity.Status;
 import kg.it_academy.sell_soul.model.AuctionModel;
 import kg.it_academy.sell_soul.service.ItemService;
 import kg.it_academy.sell_soul.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -23,8 +21,6 @@ public class AuctionConverter extends BaseConverter<AuctionModel, Auction> {
     public AuctionConverter() {
         super(AuctionConverter::convertToEntity, AuctionConverter::convertToModel);
     }
-
-
 
     private static AuctionModel convertToModel(Auction entityToConvert) {
         if (entityToConvert == null) return null;

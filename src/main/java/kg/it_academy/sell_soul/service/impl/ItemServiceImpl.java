@@ -41,7 +41,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item findById(Long id) {
         Item item = itemRepository.findById(id).orElse(null);
-        if(item == null)
+        if (item == null)
             throw new ApiFailException("Не найден товар с таким id!");
         return item;
     }

@@ -31,7 +31,7 @@ public class StatusServiceImpl implements StatusService {
     @Override
     public Status findById(Long id) {
         Status status = statusRepository.findById(id).orElse(null);
-        if(status == null)
+        if (status == null)
             throw new ApiFailException("Не найден статус с таким id!");
         return status;
     }

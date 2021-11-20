@@ -1,6 +1,5 @@
 package kg.it_academy.sell_soul.service.impl;
 
-
 import kg.it_academy.sell_soul.entity.Auction;
 import kg.it_academy.sell_soul.exception.ApiFailException;
 import kg.it_academy.sell_soul.model.AuctionModel;
@@ -22,9 +21,9 @@ import java.util.List;
 public class AuctionServiceImpl implements AuctionService {
     private final AuctionRepository auctionRepository;
     @Autowired
-    private  StatusService statusService;
+    private StatusService statusService;
     @Autowired
-    private  ItemService itemService;
+    private ItemService itemService;
 
     @Autowired
     public AuctionServiceImpl(AuctionRepository auctionRepository) {
@@ -73,7 +72,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public Auction findById(Long id) {
         Auction auction = auctionRepository.findById(id).orElse(null);
-        if(auction == null)
+        if (auction == null)
             throw new ApiFailException("Не найден аукцион с таким id!");
         return auction;
     }
@@ -93,7 +92,7 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRepository.getAuctionByActiveStatus();
     }
 
-    private  Auction convertToEntity(AuctionModel modelToConvert) {
+    private Auction convertToEntity(AuctionModel modelToConvert) {
         if (modelToConvert == null) return null;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -107,7 +106,7 @@ public class AuctionServiceImpl implements AuctionService {
                 .build();
     }
 
-    private  AuctionModel convertToModel(Auction entityToConvert) {
+    private AuctionModel convertToModel(Auction entityToConvert) {
         if (entityToConvert == null) return null;
         return AuctionModel.builder()
                 .addTime(entityToConvert.getAddTime().toString())
