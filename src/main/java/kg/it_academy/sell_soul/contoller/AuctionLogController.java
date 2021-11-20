@@ -1,7 +1,7 @@
 package kg.it_academy.sell_soul.contoller;
 
-import kg.it_academy.sell_soul.contoller.base_controller.BaseController;
 import kg.it_academy.sell_soul.entity.AuctionLog;
+import kg.it_academy.sell_soul.entity.User;
 import kg.it_academy.sell_soul.model.ResponseMessage;
 import kg.it_academy.sell_soul.service.AuctionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/auction-log")
-public class AuctionLogController extends BaseController<AuctionLog> {
+public class AuctionLogController {
     private final AuctionLogService auctionLogService;
 
     @Autowired
@@ -20,7 +20,6 @@ public class AuctionLogController extends BaseController<AuctionLog> {
     }
 
     @PostMapping
-    @Override
     public AuctionLog save(@RequestBody AuctionLog auctionLog) {
         return auctionLogService.save(auctionLog);
     }
@@ -30,21 +29,23 @@ public class AuctionLogController extends BaseController<AuctionLog> {
         return new ResponseMessage<AuctionLog>().prepareSuccessMessage(auctionLogService.save(auctionLog));
     }
 
+    @GetMapping("/buy/{id}")
+    public ResponseMessage<User> buy(@PathVariable Long id) {
+        return new ResponseMessage<User>().prepareSuccessMessage(auctionLogService.buy(id));
+    }
+
     @GetMapping
-    @Override
     public List<AuctionLog> getAll() {
         return auctionLogService.getAll();
     }
 
     @GetMapping("/api/{id}")
-    @Override
-    public AuctionLog findById(@PathVariable Long id) {
-        return auctionLogService.findById(id);
+    public ResponseMessage<AuctionLog> findById(@PathVariable Long id) {
+        return new ResponseMessage<AuctionLog>().prepareSuccessMessage(auctionLogService.findById(id));
     }
 
     @DeleteMapping("/api/{id}")
-    @Override
-    public AuctionLog deleteById(@PathVariable Long id) {
-        return auctionLogService.deleteById(id);
+    public ResponseMessage<AuctionLog> deleteById(@PathVariable Long id) {
+        return new ResponseMessage<AuctionLog>().prepareSuccessMessage(auctionLogService.deleteById(id));
     }
 }

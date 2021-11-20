@@ -2,6 +2,7 @@ package kg.it_academy.sell_soul.service.impl;
 
 import kg.it_academy.sell_soul.converter.UserConverter;
 import kg.it_academy.sell_soul.entity.User;
+import kg.it_academy.sell_soul.exception.ApiFailException;
 import kg.it_academy.sell_soul.model.UserAuthModel;
 import kg.it_academy.sell_soul.repository.UserRepository;
 import kg.it_academy.sell_soul.service.UserService;
@@ -43,7 +44,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null)
+            throw new ApiFailException("Пользователь с таким id не найден!");
+        return user;
     }
 
     @Override
@@ -51,6 +55,8 @@ public class UserServiceImpl implements UserService {
         User userForDelete = findById(id);
         if (userForDelete != null)
             userRepository.deleteById(id);
+        else
+            throw new ApiFailException("Пользователь с таким id не найден!");
         return userForDelete;
     }
 

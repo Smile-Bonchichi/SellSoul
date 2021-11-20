@@ -1,6 +1,5 @@
 package kg.it_academy.sell_soul.contoller;
 
-import kg.it_academy.sell_soul.contoller.base_controller.BaseController;
 import kg.it_academy.sell_soul.entity.User;
 import kg.it_academy.sell_soul.model.UserAuthModel;
 import kg.it_academy.sell_soul.service.UserService;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserController extends BaseController<User> {
+public class UserController {
     private final UserService userService;
 
     @Autowired
@@ -22,15 +21,13 @@ public class UserController extends BaseController<User> {
     }
 
     @PostMapping
-    @Override
-    public User save(@RequestBody User user) {
-        return userService.save(user);
+    public ResponseMessage<User> save(@RequestBody User user) {
+        return new ResponseMessage<User>().prepareSuccessMessage(userService.save(user));
     }
 
     @PostMapping("/sign-in")
     public ResponseMessage<String> signIn(@RequestBody UserAuthModel userAuthModel) {
         ResponseMessage<String> responseMessage = new ResponseMessage<>();
-
         try {
             return responseMessage.prepareSuccessMessage(userService.getByUserAuthModel(userAuthModel));
         } catch (IllegalArgumentException e) {
@@ -39,20 +36,17 @@ public class UserController extends BaseController<User> {
     }
 
     @GetMapping
-    @Override
     public List<User> getAll() {
         return userService.getAll();
     }
 
     @GetMapping("/{id}")
-    @Override
-    public User findById(@PathVariable Long id) {
-        return userService.findById(id);
+    public ResponseMessage<User> findById(@PathVariable Long id) {
+        return new ResponseMessage<User>().prepareSuccessMessage(userService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    @Override
-    public User deleteById(@PathVariable Long id) {
-        return userService.deleteById(id);
+    public ResponseMessage<User> deleteById(@PathVariable Long id) {
+        return new ResponseMessage<User>().prepareSuccessMessage(userService.deleteById(id));
     }
 }

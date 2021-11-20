@@ -43,4 +43,16 @@ public class AuctionTask {
 ////            }
 ////        }
 //    }
+
+//    @Scheduled(fixedRate = 1000)
+//    public void checkTimeOfOpen() {
+//        log.info("checkTimeOfOpen " + LocalDateTime.now().toString());
+//        List<Auction> auctions = auctionService.getAll();
+//        Status active = statusService.findById(1L);
+//        for (int i = 0; i < auctions.size(); i++) {
+//            if (auctions.get(i).getEndTime().compareTo(LocalDateTime.now()) <= 0) {
+//                auctions.get(i).setStatus(active);
+//            }
+//        }
+//    }
 }

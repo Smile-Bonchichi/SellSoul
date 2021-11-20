@@ -1,6 +1,7 @@
 package kg.it_academy.sell_soul.service.impl;
 
 import kg.it_academy.sell_soul.entity.Status;
+import kg.it_academy.sell_soul.exception.ApiFailException;
 import kg.it_academy.sell_soul.repository.StatusRepository;
 import kg.it_academy.sell_soul.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,10 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public Status findById(Long id) {
-        return statusRepository.findById(id).orElse(null);
+        Status status = statusRepository.findById(id).orElse(null);
+        if(status == null)
+            throw new ApiFailException("Не найден статус с таким id!");
+        return status;
     }
 
     @Override
@@ -37,6 +41,8 @@ public class StatusServiceImpl implements StatusService {
         Status statusForDelete = findById(id);
         if (statusForDelete != null)
             statusRepository.deleteById(id);
+        else
+            throw new ApiFailException("Статус с таким id не найден!");
         return statusForDelete;
     }
 }

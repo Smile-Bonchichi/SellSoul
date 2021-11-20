@@ -1,6 +1,7 @@
 package kg.it_academy.sell_soul.service.impl;
 
 import kg.it_academy.sell_soul.entity.Category;
+import kg.it_academy.sell_soul.exception.ApiFailException;
 import kg.it_academy.sell_soul.repository.CategoryRepository;
 import kg.it_academy.sell_soul.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(Long id) {
-        return categoryRepository.findById(id).orElse(null);
+        Category category = categoryRepository.findById(id).orElse(null);
+        if (category == null)
+            throw new ApiFailException("Не найдена категория с таким id!");
+        return category;
     }
 
     @Override
@@ -37,6 +41,8 @@ public class CategoryServiceImpl implements CategoryService {
         Category categoryForDelete = findById(id);
         if (categoryForDelete != null)
             categoryRepository.deleteById(id);
+        else
+            throw new ApiFailException("Категория с таким id не найден!");
         return categoryForDelete;
     }
 }

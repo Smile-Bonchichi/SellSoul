@@ -1,6 +1,7 @@
 package kg.it_academy.sell_soul.contoller;
 
 import kg.it_academy.sell_soul.entity.Item;
+import kg.it_academy.sell_soul.model.ResponseMessage;
 import kg.it_academy.sell_soul.service.ImageService;
 import kg.it_academy.sell_soul.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +13,15 @@ import java.util.List;
 @RequestMapping("/api/item")
 public class ItemController {
     private final ItemService itemService;
-    private final ImageService imageService;
 
     @Autowired
     public ItemController(ItemService itemService, ImageService imageService) {
         this.itemService = itemService;
-        this.imageService = imageService;
     }
 
     @PostMapping
-    public Item save(@RequestBody Item item) {
-        return itemService.save(item);
+    public ResponseMessage<Item> save(@RequestBody Item item) {
+        return new ResponseMessage<Item>().prepareSuccessMessage(itemService.save(item));
     }
 
     @GetMapping
@@ -31,8 +30,8 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public Item findById(@PathVariable Long id) {
-        return itemService.findById(id);
+    public ResponseMessage<Item> findById(@PathVariable Long id) {
+        return new ResponseMessage<Item>().prepareSuccessMessage(itemService.findById(id));
     }
 
     @GetMapping("/search-item/{itemName}")
@@ -56,7 +55,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
-    public Item deleteById(@PathVariable Long id) {
-        return itemService.deleteById(id);
+    public ResponseMessage<Item> deleteById(@PathVariable Long id) {
+        return new ResponseMessage<Item>().prepareSuccessMessage(itemService.deleteById(id));
     }
 }

@@ -1,7 +1,7 @@
 package kg.it_academy.sell_soul.contoller;
 
-import kg.it_academy.sell_soul.contoller.base_controller.BaseController;
 import kg.it_academy.sell_soul.entity.Status;
+import kg.it_academy.sell_soul.model.ResponseMessage;
 import kg.it_academy.sell_soul.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/status")
-public class StatusController extends BaseController<Status> {
+public class StatusController {
     private final StatusService statusService;
 
     @Autowired
@@ -19,26 +19,22 @@ public class StatusController extends BaseController<Status> {
     }
 
     @PostMapping
-    @Override
-    public Status save(@RequestBody Status status) {
-        return statusService.save(status);
+    public ResponseMessage<Status> save(@RequestBody Status status) {
+        return new ResponseMessage<Status>().prepareSuccessMessage(statusService.save(status));
     }
 
     @GetMapping
-    @Override
     public List<Status> getAll() {
         return statusService.getAll();
     }
 
     @GetMapping("/{id}")
-    @Override
-    public Status findById(@PathVariable Long id) {
-        return statusService.findById(id);
+    public ResponseMessage<Status> findById(@PathVariable Long id) {
+        return new ResponseMessage<Status>().prepareSuccessMessage(statusService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    @Override
-    public Status deleteById(@PathVariable Long id) {
-        return statusService.deleteById(id);
+    public ResponseMessage<Status> deleteById(@PathVariable Long id) {
+        return new ResponseMessage<Status>().prepareSuccessMessage(statusService.deleteById(id));
     }
 }

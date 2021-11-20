@@ -1,6 +1,5 @@
 package kg.it_academy.sell_soul.contoller;
 
-import kg.it_academy.sell_soul.contoller.base_controller.BaseController;
 import kg.it_academy.sell_soul.entity.Auction;
 import kg.it_academy.sell_soul.model.AuctionModel;
 import kg.it_academy.sell_soul.model.ResponseMessage;
@@ -12,18 +11,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/auction")
-public class AuctionController extends BaseController<Auction> {
+public class AuctionController  {
     private final AuctionService auctionService;
 
     @Autowired
     public AuctionController(AuctionService auctionService) {
         this.auctionService = auctionService;
-    }
-
-    @PostMapping
-    @Override
-    public Auction save(@RequestBody Auction auction) {
-        return auctionService.save(auction);
     }
 
     @PostMapping("/addWithAd")
@@ -37,20 +30,17 @@ public class AuctionController extends BaseController<Auction> {
     }
 
     @GetMapping
-    @Override
     public List<Auction> getAll() {
         return auctionService.getAll();
     }
 
     @GetMapping("/{id}")
-    @Override
-    public Auction findById(@PathVariable Long id) {
-        return auctionService.findById(id);
+    public ResponseMessage<Auction> findById(@PathVariable Long id) {
+        return new ResponseMessage<Auction>().prepareSuccessMessage(auctionService.findById(id)) ;
     }
 
     @DeleteMapping("/{id}")
-    @Override
-    public Auction deleteById(@PathVariable Long id) {
-        return auctionService.deleteById(id);
+    public ResponseMessage<Auction> deleteById(@PathVariable Long id) {
+        return new ResponseMessage<Auction>().prepareSuccessMessage(auctionService.deleteById(id)) ;
     }
 }

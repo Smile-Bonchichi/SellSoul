@@ -2,6 +2,7 @@ package kg.it_academy.sell_soul.service.impl;
 
 import kg.it_academy.sell_soul.entity.Item;
 import kg.it_academy.sell_soul.entity.User;
+import kg.it_academy.sell_soul.exception.ApiFailException;
 import kg.it_academy.sell_soul.repository.ItemRepository;
 import kg.it_academy.sell_soul.service.ItemService;
 import kg.it_academy.sell_soul.service.UserService;
@@ -38,7 +39,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item findById(Long id) {
-        return itemRepository.findById(id).orElse(null);
+        Item item = itemRepository.findById(id).orElse(null);
+        if(item == null)
+            throw new ApiFailException("Не найден товар с таким id!");
+        return item;
     }
 
     @Override
@@ -66,6 +70,8 @@ public class ItemServiceImpl implements ItemService {
         Item itemForDelete = findById(id);
         if (itemForDelete != null)
             itemRepository.deleteById(id);
+        else
+            throw new ApiFailException("Товар с таким id не найден!");
         return itemForDelete;
     }
 }
