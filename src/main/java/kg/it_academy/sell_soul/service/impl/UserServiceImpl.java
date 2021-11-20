@@ -1,15 +1,20 @@
 package kg.it_academy.sell_soul.service.impl;
 
 import kg.it_academy.sell_soul.converter.UserConverter;
+import kg.it_academy.sell_soul.entity.Role;
 import kg.it_academy.sell_soul.entity.User;
+import kg.it_academy.sell_soul.entity.UsersRoles;
 import kg.it_academy.sell_soul.exception.ApiFailException;
 import kg.it_academy.sell_soul.model.UserAuthModel;
 import kg.it_academy.sell_soul.repository.UserRepository;
+import kg.it_academy.sell_soul.repository.UserRoleRepository;
+import kg.it_academy.sell_soul.repository.UsersRolesRepository;
 import kg.it_academy.sell_soul.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Base64;
 import java.util.List;
 
@@ -17,11 +22,16 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserRoleRepository userRoleRepository;
+    private final UsersRolesRepository usersRolesRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                           UserRoleRepository userRoleRepository, UsersRolesRepository usersRolesRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userRoleRepository = userRoleRepository;
+        this.usersRolesRepository = usersRolesRepository;
     }
 
     @Override
@@ -34,7 +44,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        return userRepository.save(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user = userRepository.save(user);
+
+        UsersRoles usersRoles = new UsersRoles();
+        usersRoles.setUser(userRepository.save(user));
+        usersRoles.setRole(userRoleRepository.save(Role.builder()
+                .name("ROLE_USER")
+                .build()));
+        usersRolesRepository.save(usersRoles);
+
+        return user;
     }
 
     @Override

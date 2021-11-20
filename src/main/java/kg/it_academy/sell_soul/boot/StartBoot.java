@@ -43,7 +43,6 @@ public class StartBoot implements CommandLineRunner {
         usersRoles.setRole(userRoleRepository.save(Role.builder()
                 .name("ROLE_ADMIN")
                 .build()));
-
         usersRolesRepository.save(usersRoles);
     }
 }
