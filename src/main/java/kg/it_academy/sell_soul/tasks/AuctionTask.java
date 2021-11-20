@@ -24,39 +24,23 @@ public class AuctionTask {
         this.statusService = statusService;
     }
 
-//    @Scheduled(cron = "* * * * * *")
-//    public void checkTimeOfClose() {
-////        List<Auction> auctions = auctionService.findByActiveAuction();
-//        log.info("checkTimeOfClose " + LocalDateTime.now().toString());
-////        Status unActive = statusService.findById(0L);
-////        for (int i = 0; i < auctions.size(); i++) {
-////            if (auctions.get(i).getEndTime().compareTo(LocalDateTime.now()) <= 0) {
-////                auctions.get(i).setStatus(unActive);
-////            }
-////        }
-//    }
-//
-//    @Scheduled(fixedRate = 1000)
-//    public void checkTimeOfOpen() {
-//        log.info("checkTimeOfOpen " + LocalDateTime.now().toString());
-////        List<Auction> auctions = auctionService.getAll();
-////        Status active = statusService.findById(1L);
-////        for (int i = 0; i < auctions.size(); i++) {
-////            if (auctions.get(i).getEndTime().compareTo(LocalDateTime.now()) <= 0) {
-////                auctions.get(i).setStatus(active);
-////            }
-////        }
-//    }
+    @Scheduled(cron = "* * * * * *")
+    public void checkTimeOfClose() {
+        List<Auction> auctions = auctionService.findByActiveAuction();
+        log.info("checkTimeOfClose " + LocalDateTime.now());
+        Status unActive = statusService.findById(0L);
+        auctions.stream().filter(auction -> auction.getEndTime()
+                        .compareTo(LocalDateTime.now()) <= 0)
+                .forEach(auction -> auction.setStatus(unActive));
+    }
 
-//    @Scheduled(fixedRate = 1000)
-//    public void checkTimeOfOpen() {
-//        log.info("checkTimeOfOpen " + LocalDateTime.now().toString());
-//        List<Auction> auctions = auctionService.getAll();
-//        Status active = statusService.findById(1L);
-//        for (int i = 0; i < auctions.size(); i++) {
-//            if (auctions.get(i).getEndTime().compareTo(LocalDateTime.now()) <= 0) {
-//                auctions.get(i).setStatus(active);
-//            }
-//        }
-//    }
+    @Scheduled(fixedRate = 1000)
+    public void checkTimeOfOpen() {
+        log.info("checkTimeOfOpen " + LocalDateTime.now());
+        List<Auction> auctions = auctionService.getAll();
+        Status active = statusService.findById(1L);
+        auctions.stream().filter(auction -> auction.getEndTime()
+                        .compareTo(LocalDateTime.now()) <= 0)
+                .forEach(auction -> auction.setStatus(active));
+    }
 }

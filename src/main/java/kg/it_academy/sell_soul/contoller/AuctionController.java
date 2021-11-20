@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/auction")
-public class AuctionController  {
+public class AuctionController {
     private final AuctionService auctionService;
 
     @Autowired
@@ -36,11 +36,11 @@ public class AuctionController  {
 
     @GetMapping("/{id}")
     public ResponseMessage<Auction> findById(@PathVariable Long id) {
-        return new ResponseMessage<Auction>().prepareSuccessMessage(auctionService.findById(id)) ;
+        return new ResponseMessage<Auction>().prepareSuccessMessage(auctionService.findById(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseMessage<Auction> deleteById(@PathVariable Long id) {
-        return new ResponseMessage<Auction>().prepareSuccessMessage(auctionService.deleteById(id)) ;
+        return new ResponseMessage<Auction>().prepareSuccessMessage(auctionService.deleteById(id));
     }
 }

@@ -32,10 +32,9 @@ public class AuctionLogServiceImpl implements AuctionLogService {
             throw new ApiFailException("Аукцион закрыт!");
         } else if (auctionLog.getHighestPrice().compareTo(auction.getStartPrice()) < 0)
             throw new ApiFailException("Цена меньше начальной!");
-        else if (auctionLog.getBuyer().getBalance().compareTo(auctionLog.getHighestPrice()) < 0){
+        else if (auctionLog.getBuyer().getBalance().compareTo(auctionLog.getHighestPrice()) < 0) {
             throw new ApiFailException("Недастаточно средств!");
-        }
-        else{
+        } else {
             auctionLog = auctionLogRepository.save(auctionLog);
         }
         return auctionLog;
@@ -49,7 +48,7 @@ public class AuctionLogServiceImpl implements AuctionLogService {
     @Override
     public AuctionLog findById(Long id) {
         AuctionLog auctionLog = auctionLogRepository.findById(id).orElse(null);
-        if(auctionLog == null)
+        if (auctionLog == null)
             throw new ApiFailException("Не найден логи с таким id!");
         return auctionLog;
     }
