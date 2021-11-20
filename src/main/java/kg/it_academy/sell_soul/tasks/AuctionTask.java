@@ -15,10 +15,14 @@ import java.util.List;
 @Slf4j
 @Service
 public class AuctionTask {
+    private final AuctionService auctionService;
+    private final StatusService statusService;
+
     @Autowired
-    private AuctionService auctionService;
-    @Autowired
-    private StatusService statusService;
+    public AuctionTask(AuctionService auctionService, StatusService statusService) {
+        this.auctionService = auctionService;
+        this.statusService = statusService;
+    }
 
 //    @Scheduled(cron = "* * * * * *")
 //    public void checkTimeOfClose() {

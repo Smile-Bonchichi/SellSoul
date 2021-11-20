@@ -25,6 +25,5 @@ public class User extends BaseEntity {
     @Column(name = "balance")
     private BigDecimal balance;
 
-
     private Long isActive;
 }
