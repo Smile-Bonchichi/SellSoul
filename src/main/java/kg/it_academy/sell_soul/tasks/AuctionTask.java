@@ -28,7 +28,7 @@ public class AuctionTask {
     public void checkTimeOfClose() {
         List<Auction> auctions = auctionService.findByActiveAuction();
 //        log.info("checkTimeOfClose " + LocalDateTime.now());
-        Status unActive = statusService.findById(0L);
+        Status unActive = statusService.findById(1L);
         auctions.stream().filter(auction -> auction.getEndTime()
                         .compareTo(LocalDateTime.now()) <= 0)
                 .forEach(auction -> auction.setStatus(unActive));
@@ -38,7 +38,7 @@ public class AuctionTask {
     public void checkTimeOfOpen() {
         //      log.info("checkTimeOfOpen " + LocalDateTime.now());
         List<Auction> auctions = auctionService.getAll();
-        Status active = statusService.findById(1L);
+        Status active = statusService.findById(2L);
         auctions.stream().filter(auction -> auction.getEndTime()
                         .compareTo(LocalDateTime.now()) <= 0)
                 .forEach(auction -> auction.setStatus(active));
